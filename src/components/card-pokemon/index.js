@@ -3,31 +3,36 @@ import styled from 'styled-components'
 import { useState, useEffect } from 'react'
 
 const Card = (props) => {
-
-
  const [pokemon, setPokemon] = useState([]);
 
   useEffect( () => {
     const fetchData = async () => {
       const res = await fetch('https://pokeapi.co/api/v2/pokemon')
       const data = await res.json()
-      setPokemon([...pokemon, data.results])
+      console.log(data)
+      setPokemon(data.results)
     }
+
     fetchData()
   },[])
 
   console.log(pokemon)
-
+ 
   return (
     <>
+      <ul>
+
+        {
+          pokemon.map(({name, url}) => {
+            return (
+              <li key={name}>O nome do Pokemon é {name} <br/> Essa é a URL {url}</li>
+              
+            )
+          })
+        }
+      </ul>
     </>
-  //   <ul>
-  //     {
-  //       pokemon.map((el, index) => {
-  //         return <li key={index}>{el[index].name}</li>
-  //       })
-  //     }
-  //   </ul>
+
     
 //     <Main>
 //       <div>
